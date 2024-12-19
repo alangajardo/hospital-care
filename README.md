@@ -15,10 +15,18 @@ Para realizar la descarga, prepración y levantar el proyecto debe realizar lo s
 # Como levantar el proyecto
 
 1. Clonar el proyecto:
-> git clone https://github.com/alangajardo/hospital-care.git
-
-2. Abrir una consola en la ruta del proyecto y descargar la carpeta node_modules:
-> npm install
-
+```
+git clone https://github.com/alangajardo/hospital-care.git
+```
+2. Ingresar a la carpeta del proyecto:
+```
+cd hospital-care
+```
+3. Descargar la carpeta node_modules:
+```
+npm install
+```
 3. Levantar el proyecto de ReactJs:
-> npm run dev
+```
+npm run dev
+````
