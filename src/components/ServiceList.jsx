@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react"
+import PropTypes from 'prop-types';
 
-function ServiceList(){
+function ServiceList({servicios}){
     const servicio__img = {
         width: '100%',
         height: '550px',
         objectFit: 'cover'
     }
-
     const servicio__parrafo = {
         borderRadius: '15px',
         padding: '15px'
     }
-
-    const [servicios, setServicios] = useState([]);
-    useEffect(() => {
-        const fetchServicios = async () => {
-            const data = [
-                {id: 1,nombre: "Urgencia", descripcion: "El servicio de urgencia de un hospital ofrece atención médica inmediata a pacientes en condiciones críticas, funcionando las 24 horas con personal especializado y equipamiento para estabilizar y diagnosticar.", img: "/assets/servicios/servicio_1.jpg"},
-                {id: 2,nombre: "Telemedicina", descripcion: "El servicio de telemedicina proporciona atención médica a distancia mediante tecnologías como videollamadas y chats, permitiendo consultas sin desplazamientos y optimizando recursos sanitarios, manteniendo la confidencialidad y calidad del cuidado.", img: "/assets/servicios/servicio_2.jpg"},
-                {id: 3,nombre: "Paliativos", descripcion: "El servicio de cuidados paliativos mejora la calidad de vida de pacientes con enfermedades avanzadas sin cura, como el cáncer terminal, aliviando el dolor y síntomas, y brindando apoyo a las familias mientras prioriza el confort del paciente.", img: "/assets/servicios/servicio_3.jpg"}
-            ];
-            setServicios(data);
-        }
-        fetchServicios();
-    }, []);
-
 
     return (
         <section>
@@ -55,6 +40,17 @@ function ServiceList(){
             </div>
         </section>
     )
+}
+
+ServiceList.propTypes = {
+    servicios: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            nombre: PropTypes.string.isRequired,
+            descripcion: PropTypes.string.isRequired,
+            img: PropTypes.string.isRequired
+        })
+    ).isRequired
 }
 
 export default ServiceList
