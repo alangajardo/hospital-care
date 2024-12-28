@@ -13,6 +13,7 @@ function Modal( {children, onClose} ){
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 1050
     };
     const modal = {
         background: "#fff",
