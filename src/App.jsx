@@ -1,8 +1,12 @@
 import ServiceList from "./components/ServiceList";
 import AppointmentForm from "./components/AppointmentForm";
 import DoctorList from "./components/DoctorList";
-import { useEffect, useState } from "react";
+import React, { Profiler, useEffect, useState } from "react";
 import DoctorProvider from "./context/DoctorContext";
+
+function onRenderCallBack(id, phase, actualDuration, baseDuration, startTime, commitTime, interactions){
+  console.log({id, phase, actualDuration, baseDuration, startTime, commitTime});
+}
 
 function App() {
   const [servicios, setServicios] = useState([]);
@@ -23,15 +27,24 @@ function App() {
     console.log(data);
   }
 
+  //memo:
+  const MemoizedComponent = React.memo(ServiceList);
+
   return (
     <main>
-      <DoctorProvider>
-        <AppointmentForm submitForm={submitForm}/>
-        <br />
-        <DoctorList />
-      </DoctorProvider>
+      <Profiler id="DoctorProvider" onRender={onRenderCallBack}>
+        <DoctorProvider>
+          <AppointmentForm submitForm={submitForm}/>
+          <br />
+          <DoctorList/>
+        </DoctorProvider>
+      </Profiler>
+
       <br />
-      <ServiceList servicios={servicios}/>
+
+      <Profiler id="ServiceList" onRender={onRenderCallBack}>
+        <MemoizedComponent servicios={servicios}/>
+      </Profiler>
     </main>
   )
 }
