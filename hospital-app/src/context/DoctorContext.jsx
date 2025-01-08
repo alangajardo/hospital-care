@@ -32,7 +32,7 @@ export default function DoctorProvider( {children} ){
     }, []);
 
     return (
-        <DoctorContext.Provider value={ {doctores, error, setDoctores} }>
+        <DoctorContext.Provider value={ {doctores, error, setDoctores, setError} }>
             {children}
         </DoctorContext.Provider>
     );

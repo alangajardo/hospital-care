@@ -1,9 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import PropTypes from 'prop-types';
 import { DoctorContext } from "../context/DoctorContext";
+import { getDoctors } from "../services/api";
 
 function AppointmentForm( {submitForm} ){
-    const { doctores } = useContext(DoctorContext);
+    const { doctores, setDoctores, error, setError } = useContext(DoctorContext);
 
     const [formCita, setFormCita] = useState({
         nombre: '',
@@ -38,6 +39,17 @@ function AppointmentForm( {submitForm} ){
         setFormCita({...formCita, especialidad: e.target.value});
     }
 
+    //Método para recargar con el botón:
+    const recargarDoctores = async () => {
+        try {
+            const data = await getDoctors();
+            setDoctores(data);
+        } catch (error) {
+            setError(error);
+            setDoctores([]);
+        }
+    }
+
     return (
         <form className="bg-light p-4 shadow rounded" onSubmit={handleSubmit}>
             <h1 className="text-center mb-4">Formulario de Citas</h1>
@@ -60,6 +72,7 @@ function AppointmentForm( {submitForm} ){
                             ))
                         }
                     </select>
+                    <button className="btn btn-outline-secondary" onClick={() => recargarDoctores()}><i className="bi bi-arrow-clockwise"></i></button>
                 </div>
             </div>
             <div className="mb-3">
@@ -76,7 +89,7 @@ function AppointmentForm( {submitForm} ){
                     <input className="form-control" type="date" name="fecha" value={formCita.fecha} ref={fechaRef} onChange={handleChange} required/>
                 </div>
             </div>
-            <button type="submit" className="btn w-100">
+            <button type="submit" className="btn btn-outline-secondary w-100">
                 <i className="bi bi-send-fill"></i> Enviar
             </button>
         </form>
