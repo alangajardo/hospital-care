@@ -29,35 +29,15 @@ Se creó una API Rest para simular el consumo de un servicio. Para dicha acción
 ```bash
 git clone https://github.com/alangajardo/hospital-care.git
 ```
-2. Ingresar a la carpeta del proyecto general:
+2. Ingresar a la carpeta del proyecto:
 ```bash
 cd hospital-care
 ```
-
-# Para levantar la API:
-1. Ingresar a la carpeta de la API Rest:
-```bash
-cd api-rest
-```
-2. Descargar la carpeta node_modules:
+3. Descargar la carpeta node_modules:
 ```bash
 npm install
 ```
-3. Levantar la API Rest:
-```bash
-npm run servicio
-```
-
-# Para levantar la APP:
-1. Ingresar a la carpeta de la APP:
-```bash
-cd hospital-app
-```
-2. Descargar la carpeta node_modules:
-```bash
-npm install
-```
-3. Levantar la API Rest:
+3. Levantar el proyecto de ReactJs:
 ```bash
 npm run dev
-```
+````

@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from "react";
+import { getDoctors } from "../services/api";
 
 export const DoctorContext = createContext();
 
 export default function DoctorProvider( {children} ){
     const [doctores, setDoctores] = useState([]);
+    const [error, setError] = useState(null);
 
-    //Simulación de API que cargaría los datos:
+    /*Simulación de API que cargaría los datos:
     const fetchDoctores = async () => {
         const data = [
             {id: 1,nombre: "Dr. Stephen Strange", img: "/assets/doctores/dr_stepher_strange.jpeg", especialidad: "Traumatología", aniosExp: 5, descripcion: "El Dr. Stephen Strange es un especialista en traumatología con amplia experiencia en el diagnóstico y tratamiento de lesiones musculoesqueléticas, fracturas y problemas articulares. Se ha formado en instituciones de prestigio y participa activamente en congresos y cursos de actualización médica. Su enfoque combina técnicas quirúrgicas avanzadas con tratamientos conservadores, priorizando la recuperación funcional y el bienestar de sus pacientes. Con una atención cercana y profesional, el Dr. Stephen Strange se dedica a mejorar la calidad de vida de cada persona que confía en su cuidado."},
@@ -14,15 +16,23 @@ export default function DoctorProvider( {children} ){
             {id: 4,nombre: "Dr. Derek Sheperd", img: "/assets/doctores/dr_derek_sheperd.jpeg", especialidad: "Neurología", aniosExp: 7, descripcion: "El Dr. Derek Shepherd es un reconocido neurólogo con amplia experiencia en el diagnóstico y tratamiento de trastornos del sistema nervioso, como epilepsia, enfermedades neurodegenerativas, accidentes cerebrovasculares y migrañas. Ha desarrollado su carrera combinando conocimientos clínicos avanzados con un enfoque innovador en terapias neurológicas. Participa en investigaciones y congresos internacionales para mantenerse a la vanguardia de los avances en su especialidad. Con una atención empática y centrada en el paciente, el Dr. Shepherd se dedica a brindar tratamientos personalizados, mejorando la calidad de vida de quienes confían en su cuidado."}
         ];
         return new Promise((resolve) => setTimeout(() => resolve(data), 2000));
-    }
+    }*/
 
     //carga de datos al montar el componente
     useEffect(() => {
-        fetchDoctores().then((data) => setDoctores(data));
+        const fetchDoctores = async () => {
+            try {
+                const data = await getDoctors();
+                setDoctores(data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+        fetchDoctores();
     }, []);
 
     return (
-        <DoctorContext.Provider value={ {doctores,setDoctores} }>
+        <DoctorContext.Provider value={ {doctores, error, setDoctores} }>
             {children}
         </DoctorContext.Provider>
     );

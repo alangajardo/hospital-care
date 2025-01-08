@@ -3,8 +3,10 @@ import DoctorCard from "./DoctorCard";
 import { DoctorContext } from "../context/DoctorContext";
 
 function DoctorList(){
-    const { doctores } = useContext(DoctorContext);
+    const { doctores, error } = useContext(DoctorContext);
 
+    if(error) return <p style={{color:'red'}}>Error: {error.message}</p>
+    if(!doctores) return <p>Loading...</p>
     return (
         <section className="row px-5">
             {
